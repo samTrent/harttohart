@@ -52,8 +52,8 @@ io.sockets.on('connection', function(socket)
 
   //send message
   socket.on('send message', function(data){
-    console.log(data);
-    io.sockets.emit('new message', {msg: data, user: socket.username});
+    console.log("message data: " +  data);
+    io.sockets.emit('new message', {msg: data, user: socket.username, location: socket.location});
   });
 
 
@@ -61,7 +61,8 @@ io.sockets.on('connection', function(socket)
   //new user
   socket.on('new user', function(data, callback){
     callback(true);
-    socket.username = data;
+    socket.location = data.location;
+    socket.username = data.username;
     users.push(socket.username);
     updateUsernames();
   });
